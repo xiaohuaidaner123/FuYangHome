@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ShoppingCartButtonView.h"
+#import "ShoppingCarModel.h"
 
 @interface ShoppingCartTableViewCell : UITableViewCell
 
@@ -19,5 +20,6 @@
 @property (nonatomic, strong) UIButton *deleteBtn;
 @property (nonatomic, strong) ShoppingCartButtonView *numBtn;
 @property (nonatomic, assign) NSInteger num;
+@property (nonatomic, strong) ShoppingCarModel *cellModel;
 
 @end

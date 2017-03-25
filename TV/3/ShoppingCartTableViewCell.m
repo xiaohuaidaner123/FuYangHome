@@ -106,7 +106,12 @@
     self.num = self.num + 1;
     self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
 }
-
+- (void)setCellModel:(ShoppingCarModel *)cellModel
+{
+    self.nameLB.text = cellModel.title;
+    self.colorLB.text = cellModel.colour;
+    self.priceLB.text = cellModel.price;
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

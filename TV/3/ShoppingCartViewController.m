@@ -11,6 +11,7 @@
 #import "BottomJieSuanView.h"
 #import "BottomDeleteView.h"
 #import "JieSuanOrderViewController.h"
+#import "ShoppingCarModel.h"
 
 @interface ShoppingCartViewController ()
 
@@ -20,6 +21,7 @@
 @property (nonatomic, assign) BOOL isSelect;
 @property (nonatomic, strong) NSMutableArray *btnStatusArr;
 @property (nonatomic, assign) BOOL isBottomSelect;
+@property (nonatomic, strong) NSMutableArray *shoppingArray;
 
 @end
 
@@ -53,11 +55,16 @@
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCar" person:RequestPersonWeiMing parameters:@{@"userId": @"1490340044609",@"status": @0} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"购物车-----%@", successResponse);
         if ([successResponse isSuccess]) {
-            
             NSArray *data = successResponse[@"data"];
-            
+            NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
+            [orderArr removeObjectAtIndex:0];
+            NSLog(@"data---%@", orderArr);
+            for (NSDictionary *dic in orderArr) {
+                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+                [model setValuesForKeysWithDictionary:dic];
+                [self.shoppingArray addObject:model];
+            }
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -214,6 +221,13 @@
         _myTableView.separatorStyle = NO;
     }
     return _myTableView;
+}
+- (NSMutableArray *)shoppingArray
+{
+    if (!_shoppingArray) {
+        _shoppingArray = [NSMutableArray array];
+    }
+    return _shoppingArray;
 }
 
 - (void)didReceiveMemoryWarning {
