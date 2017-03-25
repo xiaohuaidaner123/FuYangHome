@@ -9,8 +9,13 @@
 #import "MyViewController.h"
 #import "userTableViewCell.h"
 #import "AboutViewController.h"
-#import "myTableViewCell.h"
 #import "UserHeaderView.h"
+#import "MyOrderViewController.h"
+#import "ShoppingCartViewController.h"
+#import "MyTieZiViewController.h"
+#import "MyZiLiaoViewController.h"
+#import "ReturnGoodsViewController.h"
+
 @interface MyViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSArray *titleArray,*titleImageArray;
 @end
@@ -36,7 +41,7 @@
     
     _titleArray = [[NSArray alloc]initWithObjects:@"我的资料",@"系统消息",@"关于我们",@"意见反馈",nil];
     _titleImageArray = [[NSArray alloc]initWithObjects:@"1",@"2222",@"3",@"4",@"7",@"8",nil];
-//    self.tableView.scrollEnabled = NO;
+    //    self.tableView.scrollEnabled = NO;
     [self configHeaderView];
 }
 
@@ -45,20 +50,22 @@
     [headerView.avatar whenTapped:^{
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]] animated:YES completion:nil];
     }];
+    // 我的帖子
     headerView.postAction = ^{
         [self tiezi];
     };
-    
+    // 我的订单
     headerView.orderAction = ^{
-        
+        [self dingdan];
     };
-    
+    // 购物车
     headerView.shopCarAction = ^{
-    
+        [self gouwuche];
     };
-    
+    // 退换物
     headerView.goodsAction = ^{
-        
+        ReturnGoodsViewController *returnGoods = [[ReturnGoodsViewController alloc] init];
+        [self.navigationController pushViewController:returnGoods animated:YES];
     };
     self.tableView.tableHeaderView = headerView;
 }
@@ -88,7 +95,8 @@
     switch (indexPath.row) {
         case 0: {
             //我的资料
-            ziliaoViewController*zi = [[ziliaoViewController alloc]init];
+            //            ziliaoViewController*zi = [[ziliaoViewController alloc]init];
+            MyZiLiaoViewController*zi = [[MyZiLiaoViewController alloc]init];
             [self.navigationController pushViewController:zi animated:YES];
         }
             break;
@@ -112,25 +120,25 @@
 
 - (void)tiezi
 {
-    wodeTieziViewController *ti=[[wodeTieziViewController alloc]init];
+    MyTieZiViewController *ti=[[MyTieZiViewController alloc]init];
     [self.navigationController pushViewController:ti animated:YES];
 }
 - (void)dingdan
 {
-    DingDanViewController *ti=[[DingDanViewController alloc]init];
+    MyOrderViewController *ti=[[MyOrderViewController alloc]init];
     [self.navigationController pushViewController:ti animated:YES];
 }
 - (void)gouwuche
 {
-    ShopingViewController *ti=[[ShopingViewController alloc]init];
+    ShoppingCartViewController *ti=[[ShoppingCartViewController alloc]init];
     [self.navigationController pushViewController:ti animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-//    if (section == 0) {
-//        return 0.01;
-//    }
+    //    if (section == 0) {
+    //        return 0.01;
+    //    }
     return 1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -139,16 +147,16 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.section == 0) {
-//        return 180;
-//    }
+    //    if (indexPath.section == 0) {
+    //        return 180;
+    //    }
     return kScreenHeight*0.08;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//    if (section == 0) {
-//        return nil;
-//    }
+    //    if (section == 0) {
+    //        return nil;
+    //    }
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 90)];
     view.backgroundColor = RGB(224, 224, 224);
     return view;

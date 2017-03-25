@@ -9,10 +9,6 @@
 #import "BaseViewController.h"
 #import "YijianViewController.h"
 #import "SystemMsgViewController.h"
-#import "ziliaoViewController.h"
-#import "DingDanViewController.h"
-#import "ShopingViewController.h"
-#import "wodeTieziViewController.h"
 #import "loginViewController.h"
 @interface MyViewController : BaseViewController
 

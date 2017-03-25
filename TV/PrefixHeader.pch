@@ -78,6 +78,8 @@ typedef void(^MYAction)();
 //获得RGB颜色
 #define RGBA(r, g, b, a)           [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 #define RGB(r, g, b)               RGBA(r, g, b, 1.0f)
+#define UIColorFromRGB(rgb) [UIColor colorWithRed:(((rgb & 0xFF0000) >> 16))/255.0 green:(((rgb &0xFF00) >>8))/255.0 blue:((rgb &0xFF))/255.0 alpha:1.0]
+#define UIColorFromRGBF(rgb, a) [UIColor colorWithRed:(((rgb & 0xFF0000) >> 16))/255.0 green:(((rgb &0xFF00) >>8))/255.0 blue:((rgb &0xFF))/255.0 alpha:a]
 #define UIColorWhite [UIColor whiteColor]
 #define UIColorBlack [UIColor blackColor]
 #define lanse  RGB(79, 214, 200)
