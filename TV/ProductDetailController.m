@@ -142,7 +142,9 @@
                                  @"userId": self.user.ID
                                  };
     NSLog(@"%@", parameters);
+    [MBProgressHUD showMessage:@"正在添加购物车" toView:self.view];
     [[HttpRequestManager shareManager] addPOSTURL:@"/Order/addCar" person:RequestPersonWeiMing parameters:parameters success:^(id successResponse) {
+        [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
             [MBProgressHUD showSuccess:@"成功加入购车"];
         } else {
@@ -151,6 +153,7 @@
         NSLog(@"%@", successResponse);
     } fail:^(NSError *error) {
         NSLog(@"%@", error);
+        [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showError:@"网络异常"];
     }];
 }
