@@ -17,7 +17,8 @@
         avatar.layer.cornerRadius = 15;
         avatar.layer.masksToBounds = YES;
         [self.contentView addSubview:avatar];
-       // UILabel *nickname = [UILabel labelWithText:@"" textColor: fontSize:<#(CGFloat)#>]
+        UILabel *nickname = [UILabel labelWithText:@"" textColor:UIColorBlack fontSize:12];
+        //sdifjkldsjkljsfkljfk
     }
     return self;
 }
