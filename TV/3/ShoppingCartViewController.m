@@ -56,6 +56,7 @@
         NSLog(@"购物车-----%@", successResponse);
         if ([successResponse isSuccess]) {
             
+            NSArray *data = successResponse[@"data"];
             
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
