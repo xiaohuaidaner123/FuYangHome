@@ -68,11 +68,30 @@
 {
     return rateHeight(40);
 }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(40))];
+    headerView.backgroundColor = [UIColor whiteColor];
+    UILabel *orderNumLB = [UILabel labelWithText:@"订单编号：111111111" textColor:UIColorFromRGB(0x666666) fontSize:14];
+    [orderNumLB sizeToFit];
+    [headerView addSubview:orderNumLB];
+    [orderNumLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headerView).offset(rateWidth(20));
+        make.centerY.equalTo(headerView);
+    }];
+    return headerView;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return rateHeight(60);
 }
-
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, rateHeight(60))];
+    footerView.backgroundColor = [UIColor whiteColor];
+    
+    return footerView;
+}
 - (UITableView *)myTableView
 {
     if (!_myTableView) {
