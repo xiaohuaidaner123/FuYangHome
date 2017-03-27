@@ -69,6 +69,8 @@
     }
     if (self.segmentIndex == 2) {
         cell.shouHouBtn.hidden = YES;
+    } else {
+        cell.shouHouBtn.hidden = NO;
     }
     cell.selectionStyle = NO;
     return cell;
