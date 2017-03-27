@@ -26,6 +26,9 @@
 #import "UIView+WhenTappendBlocks.h"
 #import "SDWebImage.h"
 #import "MJRefresh.h"
+#import "User.h"
+#import "UserUtil.h"
+
 #define k_content_type @"application/x-www-form-urlencoded"
 
 #ifdef DEBUG
@@ -113,4 +116,6 @@ typedef void(^MYAction)();
 #define K_GET_ACCESS_TOKEN [[NSUserDefaults standardUserDefaults] objectForKey:K_ACCESS_TOKEN]
 #define K_GET_STRINGSIZE(_info_,_font_)  [_info_ boundingRectWithSize:CGSizeMake(250, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:_font_]} context:nil].size;
 
-#endif 
+#define WeiMingURL @"http://xwmasd.ngrok.cc/FyHome/"
+
+#endif

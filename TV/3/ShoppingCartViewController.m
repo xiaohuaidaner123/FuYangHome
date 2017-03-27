@@ -30,19 +30,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.btnStatusArr = [NSMutableArray array];
-    for (int i = 0; i < 10; i++) {
-        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
-    }
     [self setNavigationBar];
     [self.view addSubview:self.myTableView];
     [self addJieSuanView];
-}
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:YES];
     [self setUpData];
 }
+
 - (void)setNavigationBar
 {
     self.navigationItem.title = @"我的购物车";
@@ -51,20 +44,33 @@
 #pragma mark - SetUpData
 - (void)setUpData
 {
-    NSLog(@"----------%@", self.user.ID);
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDefaults valueForKey:@"myUserId"];
     [MBProgressHUD showMessage:@"正在加载数据..." toView:self.view];
-    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCar" person:RequestPersonWeiMing parameters:@{@"userId": @"1490340044609",@"status": @0} success:^(id successResponse) {
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/showCar" person:RequestPersonWeiMing parameters:@{@"userId": userId,@"status": @0} success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
         if ([successResponse isSuccess]) {
             NSArray *data = successResponse[@"data"];
-            NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
-            [orderArr removeObjectAtIndex:0];
-            NSLog(@"data---%@", orderArr);
-            for (NSDictionary *dic in orderArr) {
-                ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
-                [model setValuesForKeysWithDictionary:dic];
-                [self.shoppingArray addObject:model];
+            NSLog(@"data---%@",data);
+            if (data.count != 0) {
+                NSMutableArray *orderArr = [NSMutableArray arrayWithArray:data[0][@"order"][@"orders"]];
+                [orderArr removeObjectAtIndex:0];
+                NSLog(@"orderArr---%@", orderArr);
+                self.shoppingArray = [NSMutableArray array];
+                for (NSDictionary *dic in orderArr) {
+                    ShoppingCarModel *model = [[ShoppingCarModel alloc] init];
+                    [model setValuesForKeysWithDictionary:dic];
+                    [_shoppingArray addObject:model];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.btnStatusArr = [NSMutableArray array];
+                    for (int i = 0; i < _shoppingArray.count; i++) {
+                        [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
+                    }
+                    [_myTableView reloadData];
+                });
             }
+            
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -107,7 +113,7 @@
     self.isBottomSelect = !_isBottomSelect;
     if (_isBottomSelect == YES) {
         [self.btnStatusArr removeAllObjects];
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < _shoppingArray.count; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"1"]];
         }
         [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"灰选中"] forState:(UIControlStateNormal)];
@@ -115,7 +121,7 @@
         [_myTableView reloadData];
     } else {
         [self.btnStatusArr removeAllObjects];
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < _shoppingArray.count; i++) {
             [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
         }
         [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
@@ -130,7 +136,7 @@
     [self.bottomJieSuanV.selectAllBtn setImage:[UIImage imageNamed:@"椭圆 4"] forState:(UIControlStateNormal)];
     [self.bottomDeleteV.selectAllBtn setImage:[UIImage imageNamed:@"全选"] forState:(UIControlStateNormal)];
     [self.btnStatusArr removeAllObjects];
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < _shoppingArray.count; i++) {
         [self.btnStatusArr addObject:[NSString stringWithFormat:@"0"]];
     }
     [_myTableView reloadData];
@@ -158,7 +164,7 @@
         _btnStatusArr[btn.tag] = @"0";
     }
     [_myTableView reloadData];
-
+    
 }
 #pragma mark - 结算按钮
 - (void)actionJieSuan:(UIButton *)btn
@@ -169,7 +175,7 @@
 #pragma mark - tableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 10;
+    return _shoppingArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -182,13 +188,18 @@
     if (cell == nil) {
         cell = [[ShoppingCartTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
     }
-    [cell.selectBtn addTarget:self action:@selector(actionDanXuan:) forControlEvents:(UIControlEventTouchUpInside)];
+    
     cell.selectionStyle = NO;
-    cell.selectBtn.tag = indexPath.section;
-    if ([_btnStatusArr[indexPath.section] intValue] == 0) {
-        [cell.selectBtn setImage:[UIImage imageNamed:@"没选中"] forState:(UIControlStateNormal)];
-    } else if ([_btnStatusArr[indexPath.section] intValue] == 1) {
-        [cell.selectBtn setImage:[UIImage imageNamed:@"选中"] forState:(UIControlStateNormal)];
+    
+    if (_shoppingArray.count != 0) {
+        cell.cellModel = (ShoppingCarModel *)_shoppingArray[indexPath.section];
+        cell.selectBtn.tag = indexPath.section;
+        [cell.selectBtn addTarget:self action:@selector(actionDanXuan:) forControlEvents:(UIControlEventTouchUpInside)];
+        if ([_btnStatusArr[indexPath.section] intValue] == 0) {
+            [cell.selectBtn setImage:[UIImage imageNamed:@"没选中"] forState:(UIControlStateNormal)];
+        } else if ([_btnStatusArr[indexPath.section] intValue] == 1) {
+            [cell.selectBtn setImage:[UIImage imageNamed:@"选中"] forState:(UIControlStateNormal)];
+        }
     }
     return cell;
 }
@@ -222,13 +233,13 @@
     }
     return _myTableView;
 }
-- (NSMutableArray *)shoppingArray
-{
-    if (!_shoppingArray) {
-        _shoppingArray = [NSMutableArray array];
-    }
-    return _shoppingArray;
-}
+//- (NSMutableArray *)shoppingArray
+//{
+//    if (!_shoppingArray) {
+//        _shoppingArray = [NSMutableArray array];
+//    }
+//    return _shoppingArray;
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

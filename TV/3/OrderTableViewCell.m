@@ -60,6 +60,7 @@
         make.left.equalTo(image.mas_right).offset(rateWidth(15));
         make.top.equalTo(image).offset(rateHeight(5));
     }];
+    self.nameLB = label1;
     
     UILabel *label2 = [UILabel labelWithText:@"数量：1件" textColor:RGB(74, 74, 74) fontSize:14];
     [label2 sizeToFit];
@@ -106,7 +107,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

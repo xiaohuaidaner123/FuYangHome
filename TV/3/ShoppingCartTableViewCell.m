@@ -20,7 +20,6 @@
 }
 - (void)addSubViews
 {
-    self.num = 1;
     self.contentView.backgroundColor = RGB(239, 239, 239);
     
     UIButton *selectBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -98,19 +97,39 @@
 {
     if (self.num > 1) {
         self.num = self.num - 1;
-        self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+        [self editGoodsNum];
     }
 }
 - (void)actionAdd:(UIButton *)btn
 {
     self.num = self.num + 1;
-    self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+    [self editGoodsNum];
 }
 - (void)setCellModel:(ShoppingCarModel *)cellModel
 {
     self.nameLB.text = cellModel.title;
-    self.colorLB.text = cellModel.colour;
-    self.priceLB.text = cellModel.price;
+    self.colorLB.text = [NSString stringWithFormat:@"颜色：%@", cellModel.colour];
+    self.priceLB.text = [NSString stringWithFormat:@"￥%.2f", [cellModel.price floatValue]];
+    self.num = cellModel.num;
+    self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+    NSURL *imgUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", WeiMingURL,cellModel.picPath]];
+    [self.goodsImg sd_setImageWithURL:imgUrl];
+    self.orderId = cellModel.orderId;
+}
+#pragma mark - 编辑商品数量
+- (void)editGoodsNum
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *userId = [userDefaults valueForKey:@"myUserId"];
+    [[HttpRequestManager shareManager] addPOSTURL:@"/Order/updateCar" person:RequestPersonWeiMing parameters:@{@"userId":userId,@"orderId":self.orderId,@"num":@(self.num)} success:^(id successResponse) {
+        if ([successResponse isSuccess]) {
+            self.numBtn.numLB.text = [NSString stringWithFormat:@"%ld", (long)self.num];
+        } else {
+            [MBProgressHUD showResponseMessage:successResponse];
+        }
+    } fail:^(NSError *error) {
+        [MBProgressHUD showError:@"网络异常"];
+    }];
 }
 
 - (void)awakeFromNib {
@@ -120,7 +139,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 

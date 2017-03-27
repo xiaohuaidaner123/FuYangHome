@@ -223,6 +223,8 @@
 		8FF632C91E8369D500ED8751 /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632B81E8369D400ED8751 /* TZTestCell.m */; };
 		8FF632CA1E8369D500ED8751 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632BA1E8369D400ED8751 /* TZVideoPlayerController.m */; };
 		8FF632CB1E8369D500ED8751 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FF632BC1E8369D400ED8751 /* UIView+Layout.m */; };
+		8FFD41951E88DA6500544045 /* ReturnGoodsDetaildsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD41921E88DA6500544045 /* ReturnGoodsDetaildsViewController.m */; };
+		8FFD41961E88DA6500544045 /* ReturnGoodsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD41941E88DA6500544045 /* ReturnGoodsTableViewCell.m */; };
 		F4636D111E35D305001102EF /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D0E1E35D305001102EF /* iTunesArtwork.png */; };
 		F4636D121E35D305001102EF /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D0F1E35D305001102EF /* iTunesArtwork@2x.png */; };
 		F4636D1C1E35E6C6001102EF /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F4636D1B1E35E6C6001102EF /* Icon-60@2x.png */; };
@@ -874,6 +876,10 @@
 		8FF632BA1E8369D400ED8751 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		8FF632BB1E8369D400ED8751 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		8FF632BC1E8369D400ED8751 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		8FFD41911E88DA6500544045 /* ReturnGoodsDetaildsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnGoodsDetaildsViewController.h; sourceTree = "<group>"; };
+		8FFD41921E88DA6500544045 /* ReturnGoodsDetaildsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnGoodsDetaildsViewController.m; sourceTree = "<group>"; };
+		8FFD41931E88DA6500544045 /* ReturnGoodsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnGoodsTableViewCell.h; sourceTree = "<group>"; };
+		8FFD41941E88DA6500544045 /* ReturnGoodsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnGoodsTableViewCell.m; sourceTree = "<group>"; };
 		F4636D0E1E35D305001102EF /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		F4636D0F1E35D305001102EF /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		F4636D1B1E35E6C6001102EF /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
@@ -1141,6 +1147,10 @@
 			children = (
 				8F0CF47D1E86716E008E95DE /* ReturnGoodsViewController.h */,
 				8F0CF47E1E86716E008E95DE /* ReturnGoodsViewController.m */,
+				8FFD41911E88DA6500544045 /* ReturnGoodsDetaildsViewController.h */,
+				8FFD41921E88DA6500544045 /* ReturnGoodsDetaildsViewController.m */,
+				8FFD41931E88DA6500544045 /* ReturnGoodsTableViewCell.h */,
+				8FFD41941E88DA6500544045 /* ReturnGoodsTableViewCell.m */,
 			);
 			path = "退换货";
 			sourceTree = "<group>";
@@ -2830,6 +2840,7 @@
 				F4F22F1D1DCDEBAA007C83F8 /* UINavigationController+FDFullscreenPopGesture.m in Sources */,
 				8FE388A51E7FC14B006CD8EA /* MKAnnotationView+WebCache.m in Sources */,
 				8F3909AF1E5C2C3C0011E366 /* MBProgressHUD.m in Sources */,
+				8FFD41961E88DA6500544045 /* ReturnGoodsTableViewCell.m in Sources */,
 				F4F22E8D1DCDEBAA007C83F8 /* changePwdViewController.m in Sources */,
 				F4F22F1A1DCDEBAA007C83F8 /* TwoViewController.m in Sources */,
 				F4F22F1F1DCDEBAA007C83F8 /* UIViewExt.m in Sources */,
@@ -2923,6 +2934,7 @@
 				F46535DD1DE7CC3200C324DA /* WPWaveRippleView.m in Sources */,
 				8FAC928B1E88C11500021D71 /* Order.m in Sources */,
 				F4F22EB31DCDEBAA007C83F8 /* forgetPwdViewController.m in Sources */,
+				8FFD41951E88DA6500544045 /* ReturnGoodsDetaildsViewController.m in Sources */,
 				8FE388AD1E7FC14B006CD8EA /* SDWebImagePrefetcher.m in Sources */,
 				8F0F16B41E827D0D00D7D308 /* MJRefreshFooter.m in Sources */,
 			);

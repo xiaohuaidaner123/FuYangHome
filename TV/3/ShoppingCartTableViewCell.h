@@ -21,5 +21,6 @@
 @property (nonatomic, strong) ShoppingCartButtonView *numBtn;
 @property (nonatomic, assign) NSInteger num;
 @property (nonatomic, strong) ShoppingCarModel *cellModel;
+@property (nonatomic, strong) NSString *orderId;
 
 @end

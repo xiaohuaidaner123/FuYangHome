@@ -103,12 +103,14 @@
     NSDictionary *parameters = @{@"pone": self.tel.text, @"password": self.password.text};
     [[HttpRequestManager shareManager] addPOSTURL:@"/FyjjController/yy" person:RequestPersonYuChuan parameters:parameters success:^(id successResponse) {
         [MBProgressHUD hideHUDForView:self.view];
-        NSLog(@"%@", successResponse);
+        NSLog(@"登录%@", successResponse);
         if ([successResponse isSuccess]) {
             NSDictionary *data = successResponse[@"data"];
             User *user = [User mj_objectWithKeyValues:data];
             [[UserUtil shareInstance] saveUser:user];
             [self dismissViewControllerAnimated:YES completion:nil];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:data[@"id"] forKey:@"myUserId"];
         } else {
             [MBProgressHUD showResponseMessage:successResponse];
         }
@@ -139,13 +141,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

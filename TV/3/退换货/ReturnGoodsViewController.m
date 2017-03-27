@@ -8,8 +8,11 @@
 
 #import "ReturnGoodsViewController.h"
 #import "LiuXSegmentView.h"
+#import "ReturnGoodsTableViewCell.h"
 
-@interface ReturnGoodsViewController ()
+@interface ReturnGoodsViewController ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITableView *myTableView;
 
 @end
 
@@ -21,6 +24,8 @@
     self.navigationItem.title = @"退换货";
     [self addRightItemWithImage:@"shanchu " action:nil];
     [self addSegment];
+    [self.view addSubview:self.myTableView];
+    
 }
 #pragma mark - 分段选择
 - (void)addSegment
@@ -36,22 +41,54 @@
     view.titleSelectColor = UIColorFromRGB(0xff0000);
     [self.view addSubview:view];
 }
+#pragma mark - tableViewDelegate
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identififer = @"returnGoodsCell";
+    ReturnGoodsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identififer];
+    if (cell == nil) {
+        cell = [[ReturnGoodsTableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identififer];
+    }
+    cell.selectionStyle = NO;
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return rateHeight(95);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return rateHeight(40);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return rateHeight(60);
+}
 
-
+- (UITableView *)myTableView
+{
+    if (!_myTableView) {
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-110) style:(UITableViewStyleGrouped)];
+        _myTableView.delegate = self;
+        _myTableView.dataSource = self;
+        _myTableView.separatorStyle = NO;
+    }
+    return _myTableView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
