@@ -59,30 +59,30 @@
         title.frame = CGRectMake(dateView.right+10, self.ivs.firstObject.bottom+15, kScreenWidth-dateView.right-20, 16);
         [self.contentView addSubview:title];
         
-        UILabel *desc = [UILabel labelWithText:@"" textColor:RGB(121, 121, 121) fontSize:16];
-        _desc = desc;
-        desc.numberOfLines = 2;
-        desc.frame = CGRectMake(title.left, title.bottom+3, title.width, 40);
-        [self.contentView addSubview:desc];
+//        UILabel *desc = [UILabel labelWithText:@"" textColor:RGB(121, 121, 121) fontSize:16];
+//        _desc = desc;
+//        desc.numberOfLines = 2;
+//        desc.frame = CGRectMake(title.left, title.bottom+3, title.width, 40);
+//        [self.contentView addSubview:desc];
         
         UIButton *common = [UIButton buttonWithTitle:@"0" fontSize:17 titleColor:RGB(150, 150, 150) background:UIColorWhite cornerRadius:0];
         self.commonBtn = common;
         common.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [common setImage:UIImageNamed(@"comment1") forState:UIControlStateNormal];
-        common.frame = CGRectMake(rateWidth(80), desc.bottom+5, 80, 35);
+        common.frame = CGRectMake(rateWidth(80), title.bottom+10, 80, 35);
         [self.contentView addSubview:common];
         
         UIButton *praise = [UIButton buttonWithTitle:@"0" fontSize:17 titleColor:RGB(150, 150, 150) background:UIColorWhite cornerRadius:0];
         self.pariseBtn = praise;
         praise.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [praise setImage:UIImageNamed(@"favor1") forState:UIControlStateNormal];
-        praise.frame = CGRectMake(common.right+3, desc.bottom+5, 80, 35);
+        praise.frame = CGRectMake(common.right+3, title.bottom+10, 80, 35);
         [self.contentView addSubview:praise];
         
         UIButton *share = [UIButton buttonWithTitle:@"" fontSize:17 titleColor:RGB(150, 150, 150) background:UIColorWhite cornerRadius:0];
         share.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [share setImage:UIImageNamed(@"share") forState:UIControlStateNormal];
-        share.frame = CGRectMake(praise.right+3, desc.bottom+5, 80, 35);
+        share.frame = CGRectMake(praise.right+3, title.bottom+10, 80, 35);
         [self.contentView addSubview:share];
         
         UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(title.left, common.bottom+5, kScreenWidth-title.left, 1)];
@@ -109,7 +109,7 @@
     _title.text = model.magazineName;
     
     NSMutableArray *urls = [[model.magazineUrlContent componentsSeparatedByString:@";"] mutableCopy];
-    [urls removeObjectAtIndex:0];
+//    [urls removeObjectAtIndex:0];
     
     switch (urls.count) {
         case 1:
@@ -132,7 +132,7 @@
     
     [self.commonBtn setTitle:[NSString stringWithFormat:@"%ld", model.comments.count] forState:UIControlStateNormal];
     [self.pariseBtn setTitle:[NSString stringWithFormat:@"%ld", model.thumbs.count] forState:UIControlStateNormal];
-    self.desc.text = model.magazineTextContent;
+//    self.desc.text = model.magazineTextContent;
 }
 
 - (NSMutableArray<UIImageView *> *)ivs {
